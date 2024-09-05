@@ -100,14 +100,17 @@ export class LoginComponent {
         console.log(atrapar)
 
         if (atrapar.status === 400) {
+          alert(atrapar.error.message)
           this.errorEnSolicitud = atrapar.error.message[0]
           this.loading = false
         }
         else if (atrapar.status === 401) {
+          alert(atrapar.error.message)
           this.errorEnSolicitud = atrapar.error.message
           this.loading = false
         }
         else {
+          alert("Error en el servidor")
           this.errorEnSolicitud = "Error en el servidor"
           this.loading = false
         }
