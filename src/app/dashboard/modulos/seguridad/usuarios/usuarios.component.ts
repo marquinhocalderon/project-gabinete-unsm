@@ -3,7 +3,6 @@ import { ApipeticionesService } from '../../../../core/servicios/apipeticiones.s
 import { PostUsuariosComponent } from './post-usuarios/post-usuarios.component';
 import { ModulosUsuariosComponent } from './modulos-usuarios/modulos-usuarios.component';
 import { PutUsuariosComponent } from "./put-usuarios/put-usuarios.component";
-import { ChangeDetectorRef } from '@angular/core';
 import { EstadoGlobalGuardarDatosService } from '../../../../core/guardardatos/estado-global-guardar-datos.service';
 
 @Component({
@@ -19,7 +18,7 @@ export class UsuariosComponent {
 
   estadomodalModulosActualizar: boolean = false;
 
-  constructor(private api: ApipeticionesService, private cdr: ChangeDetectorRef, private estado_global : EstadoGlobalGuardarDatosService) { }
+  constructor(private api: ApipeticionesService, private estado_global : EstadoGlobalGuardarDatosService) { }
 
   ngOnInit(): void {
     this.getUsuarios(); // Llamada a la función para obtener usuarios al inicializar el componente
@@ -28,7 +27,6 @@ export class UsuariosComponent {
   modulosEditar(data: any) {
     this.estado_global.setDatosServicioGlobal(data);
     this.estadomodalModulosActualizar = true;
-    this.cdr.detectChanges(); // Forzar la detección de cambios
   }
 
   recogerModalCerrar(event: any) {
