@@ -7,13 +7,13 @@ export class EstadoGlobalGuardarDatosService {
 
   constructor() { }
 
-  private datosServicioById: any
+  private datosServicio: any
         
   setDatosServicioGlobal(dato:any){
-      this.datosServicioById = dato;
+      this.datosServicio = dato;
   }
   
   getDatosServicioGlobal(){
-    return this.datosServicioById;
+    return this.datosServicio;
   }
 }
