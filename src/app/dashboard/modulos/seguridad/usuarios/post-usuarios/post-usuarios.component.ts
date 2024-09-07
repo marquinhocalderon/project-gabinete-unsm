@@ -32,7 +32,7 @@ export class PostUsuariosComponent {
   getPerfiles(): void {
     this.api.getApi(this.url_perfiles).subscribe({
       next: (data: any) => {
-        this.perfiles = data; // Asignar los datos recibidos a la variable 'usuarios'
+        this.perfiles = data; // Asignar los datos recibidos a la variable ''
         
       },
       error: (error: any) => {
