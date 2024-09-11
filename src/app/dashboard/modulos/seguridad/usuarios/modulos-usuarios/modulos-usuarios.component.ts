@@ -34,6 +34,7 @@ export class ModulosUsuariosComponent {
 
   clicKCerrarModal() {
     this.estadoModal.emit(false);
+
   }
 
   getModulos(): void {
@@ -71,7 +72,6 @@ export class ModulosUsuariosComponent {
     });
   }
 
-  estaCheckeado:any
 
 // Actualiza el estado de "Seleccionar todo" si todos los módulos están seleccionados
 actualizarSeleccionarTodo(): void {
@@ -81,9 +81,9 @@ actualizarSeleccionarTodo(): void {
 
 // Controla el cambio de estado del checkbox "Seleccionar todo"
 seleccionarTodoChecks(event: any): void {
-  this.estaCheckeado = event.target.checked;
+  const checkeado = event.target.checked;
   // Cambia el estado de todos los módulos según "Seleccionar todo"
-  this.modulos.forEach((modulo) => (modulo.estado = this.estaCheckeado));
+  this.modulos.forEach((modulo) => (modulo.estado = checkeado));
   // Actualiza el estado general
   this.actualizarSeleccionarTodo();
 }
