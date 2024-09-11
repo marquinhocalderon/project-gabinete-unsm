@@ -4,6 +4,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InicioHomeComponent } from './dashboard/modulos/inicio-home/inicio-home.component';
 import { UsuariosComponent } from './dashboard/modulos/seguridad/usuarios/usuarios.component';
+import { FacultadesComponent } from './dashboard/modulos/facultades/facultades.component';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,10 @@ export const routes: Routes = [
             component: UsuariosComponent,
           },
         ]
+      },
+      {
+        path: 'facultades',
+        component: FacultadesComponent,
       }
     ]
   },

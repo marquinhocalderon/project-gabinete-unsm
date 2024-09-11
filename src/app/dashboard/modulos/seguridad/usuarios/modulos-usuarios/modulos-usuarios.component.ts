@@ -96,8 +96,10 @@ chequeoDeTodoLosModulos(event: any, modulo: any): void {
   this.actualizarSeleccionarTodo();
 }
   
+loading = false;  
 
   enviarDatos(e: any): void {
+    this.loading = true;
     e.preventDefault();
 
     const elementosFormulario = e.target.elements;
@@ -134,10 +136,13 @@ chequeoDeTodoLosModulos(event: any, modulo: any): void {
             allowEnterKey: false
           }).then(() => {
             this.estadoModal.emit(false);
+            window.location.reload();
+            this.loading = false;
           });
         },
         error: (error: any) => {
           console.error('Error al actualizar permisos:', error);
+          this.loading = false;
         }
       });
       
