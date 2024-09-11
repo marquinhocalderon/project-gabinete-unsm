@@ -4,11 +4,12 @@ import { PostUsuariosComponent } from './post-usuarios/post-usuarios.component';
 import { ModulosUsuariosComponent } from './modulos-usuarios/modulos-usuarios.component';
 import { PutUsuariosComponent } from "./put-usuarios/put-usuarios.component";
 import { EstadoGlobalGuardarDatosService } from '../../../../core/guardardatos/estado-global-guardar-datos.service';
+import { PermisosUsuariosComponent } from './permisos-usuarios/permisos-usuarios.component';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [PostUsuariosComponent, ModulosUsuariosComponent, PutUsuariosComponent],
+  imports: [PostUsuariosComponent, ModulosUsuariosComponent, PutUsuariosComponent, PermisosUsuariosComponent],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css'
 })
@@ -17,6 +18,8 @@ export class UsuariosComponent {
   url = import.meta.env.NG_APP_API + "/peticion/usuarios/all"; // URL de la API
 
   estadomodalModulosActualizar: boolean = false;
+
+  estadomodalPermisos: boolean = false;
 
   constructor(private api: ApipeticionesService, private estado_global : EstadoGlobalGuardarDatosService) { }
 
@@ -29,10 +32,16 @@ export class UsuariosComponent {
     this.estadomodalModulosActualizar = true;
   }
 
+  modulosPermisos(data: any) {
+    this.estado_global.setDatosServicioGlobal(data);
+    this.estadomodalPermisos = true;
+  }
+
   recogerModalCerrar(event: any) {
     console.log(event);
     if (!event) {
       this.estadomodalModulosActualizar = false;
+      this.estadomodalPermisos = false;
     }
   }
 

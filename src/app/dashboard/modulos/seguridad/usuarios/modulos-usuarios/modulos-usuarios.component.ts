@@ -53,6 +53,7 @@ export class ModulosUsuariosComponent {
 
     this.api.getApi(urlUsuarios).subscribe({
       next: (data: any) => {
+
         this.modulosQuetieneUsuario = data[0].modulos_para_actualizar;
         console.log(
           'Modulos que tiene el usuario:',
