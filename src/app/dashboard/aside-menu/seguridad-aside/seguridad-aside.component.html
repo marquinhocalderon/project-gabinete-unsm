@@ -1,0 +1,28 @@
+<li>
+    <details class="cursor-pointer" (click)="clickFecha()">
+      <summary class="text-base text-gray-900 font-normal rounded-lg flex items-center p-2 hover:bg-slate-100  group">
+          <span class="flex flex-1 gap-3 cursor-pointer">
+           <div class=" rounded-lg ">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"/>
+              </svg>
+           </div>
+
+            
+           <span class="mt-1" >Seguridad</span>
+          </span>
+          <span class="transition transform mt-[0.10rem] {{flecha ? 'rotate-180' : 'rotate-0' }}">
+              <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                  <path d="M6 9l6 6 6-6"></path>
+              </svg>
+          </span>
+      </summary>
+      <ul>
+        <li><a (click)="clickFecha22()" [routerLink]="['/dashboard/seguridad/usuarios']" class="flex items-center px-12 py-2 text-black  hover:bg-slate-100 ">Usuarios</a></li>
+        <li><a (click)="clickFecha22()" [routerLink]="['/dashboard/seguridad/perfiles']" class="flex items-center px-12 py-2 text-black hover:bg-slate-100">Perfiles</a></li>
+        <li><a (click)="clickFecha22()" [routerLink]="['/dashboard/seguridad/permisos']" class="flex items-center px-12 py-2 text-black hover:bg-slate-100">Permisos</a></li>
+      </ul>
+      
+  </details>
+  
+    </li>
