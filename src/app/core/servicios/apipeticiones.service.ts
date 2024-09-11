@@ -19,8 +19,8 @@ export class ApipeticionesService {
     return this.http.post(url, datos);
   }
 
-  public putApi(url: string, datos: any): Observable<any> {
-    return this.http.put(url, datos);
+  public patchApi(url: string, datos: any): Observable<any> {
+    return this.http.patch(url, datos);
   }
 
   public deleteApi(url: string): Observable<any> {
