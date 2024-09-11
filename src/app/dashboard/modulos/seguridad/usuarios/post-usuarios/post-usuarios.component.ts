@@ -28,6 +28,16 @@ export class PostUsuariosComponent {
     this.getPerfiles(); // Llamada a la función para obtener usuarios al inicializar el componente
   }
 
+  showPassword : any
+
+  mirarContrasena(e: any) {
+    if (e.target.checked) {
+      this.showPassword = true;
+    } else {
+      this.showPassword = false
+    }
+  }
+
 
   getPerfiles(): void {
     this.api.getApi(this.url_perfiles).subscribe({

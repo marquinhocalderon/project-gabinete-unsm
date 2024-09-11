@@ -21,18 +21,26 @@ export class UsuariosComponent {
 
   estadomodalPermisos: boolean = false;
 
+  estadomodalUsuarios: boolean = false;
+
   constructor(private api: ApipeticionesService, private estado_global : EstadoGlobalGuardarDatosService) { }
 
   ngOnInit(): void {
     this.getUsuarios(); // Llamada a la función para obtener usuarios al inicializar el componente
   }
   
-  modulosEditar(data: any) {
+  funcionEditarModulos(data: any) {
     this.estado_global.setDatosServicioGlobal(data);
     this.estadomodalModulosActualizar = true;
   }
 
-  modulosPermisos(data: any) {
+
+  funcionEditarUsuarios(data: any) {
+    this.estado_global.setDatosServicioGlobal(data);
+    this.estadomodalUsuarios = true;
+  }
+
+  funcionEditarPermisos(data: any) {
     this.estado_global.setDatosServicioGlobal(data);
     this.estadomodalPermisos = true;
   }
@@ -42,11 +50,12 @@ export class UsuariosComponent {
     if (!event) {
       this.estadomodalModulosActualizar = false;
       this.estadomodalPermisos = false;
+      this.estadomodalUsuarios = false
     }
   }
 
 
-  recogerPostCompletado(event: any) {
+  recogerCompletado(event: any) {
     if (event) {
       this.getUsuarios(); // Llamada a la función para obtener usuarios al completar el registro
       }
