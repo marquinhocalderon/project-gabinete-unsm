@@ -29,19 +29,17 @@ export class ModulosUsuariosComponent {
     initFlowbite();
     this.id_usuario = this.estado_global.getDatosServicioGlobal().id;
     this.getModulos();
-    this.getModulosQueTieneUsuario();
   }
 
   clicKCerrarModal() {
     this.estadoModal.emit(false);
-
   }
 
   getModulos(): void {
     this.api.getApi(this.url).subscribe({
       next: (data: any) => {
         this.modulos = data;
-        this.actualizarSeleccionarTodo();
+        this.getModulosQueTieneUsuario();
       },
       error: (error: any) => {
         console.error('Error al obtener módulos:', error);
@@ -56,6 +54,10 @@ export class ModulosUsuariosComponent {
     this.api.getApi(urlUsuarios).subscribe({
       next: (data: any) => {
         this.modulosQuetieneUsuario = data[0].modulos_para_actualizar;
+        console.log(
+          'Modulos que tiene el usuario:',
+          this.modulosQuetieneUsuario
+        );
         this.modulos.forEach((modulo) => {
           const moduloUsuario = this.modulosQuetieneUsuario.find(
             (m: any) => m.id === modulo.id
@@ -64,6 +66,8 @@ export class ModulosUsuariosComponent {
             modulo.estado = moduloUsuario.habilitado;
           }
         });
+
+        // Verifica el estado de "Seleccionar todo" después de actualizar los módulos
         this.actualizarSeleccionarTodo();
       },
       error: (error: any) => {
@@ -72,32 +76,21 @@ export class ModulosUsuariosComponent {
     });
   }
 
+  actualizarSeleccionarTodo(): void {
+    this.seleccionarTodo = this.modulos.every((modulo) => modulo.estado);
+  }
 
-// Actualiza el estado de "Seleccionar todo" si todos los módulos están seleccionados
-actualizarSeleccionarTodo(): void {
-  this.seleccionarTodo = this.modulos.every((modulo) => modulo.estado);
-  console.log('Estado de seleccionar todo:', this.seleccionarTodo);
-}
+  seleccionarTodoChecks(event: any): void {
+    let checkeado = event.target.checked;
+    this.modulos.forEach((modulo) => (modulo.estado = checkeado));
+    this.actualizarSeleccionarTodo();
+  }
 
-// Controla el cambio de estado del checkbox "Seleccionar todo"
-seleccionarTodoChecks(event: any): void {
-  const checkeado = event.target.checked;
-  // Cambia el estado de todos los módulos según "Seleccionar todo"
-  this.modulos.forEach((modulo) => (modulo.estado = checkeado));
-  // Actualiza el estado general
-  this.actualizarSeleccionarTodo();
-}
-
-// Controla el cambio de estado de los checkboxes individuales
-chequeoDeTodoLosModulos(event: any, modulo: any): void {
-  modulo.estado = event.target.checked;
-
-  // Verifica si todos los módulos están seleccionados o no
-  this.actualizarSeleccionarTodo();
-}
-  
-loading = false;  
-
+  chequeoDeTodoLosModulos(event: any, modulo: any): void {
+    modulo.estado = event.target.checked;
+    this.actualizarSeleccionarTodo();
+  }
+  loading : any
   enviarDatos(e: any): void {
     this.loading = true;
     e.preventDefault();
@@ -108,9 +101,7 @@ loading = false;
     for (let i = 0; i < elementosFormulario.length; i++) {
       const elemento = elementosFormulario[i];
 
-      // Verificar si el elemento tiene un atributo 'name' y si es un checkbox
       if (elemento.name && elemento.type === 'checkbox') {
-        // Agregar el objeto al arreglo 'modulos'
         modulosParaSusPermisos.push({
           id: elemento.name,
           habilitado: elemento.checked,
@@ -123,28 +114,27 @@ loading = false;
       '/peticion/modulospermisos/' +
       this.id_usuario;
 
-      this.api.patchApi(urlPermisos, modulosParaSusPermisos).subscribe({
-        next: (data: any) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Permisos Modulos Actualizados',
-            showConfirmButton: true,
-            confirmButtonText: 'OK',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false
-          }).then(() => {
-            this.estadoModal.emit(false);
-            window.location.reload();
-            this.loading = false;
-          });
-        },
-        error: (error: any) => {
-          console.error('Error al actualizar permisos:', error);
+    this.api.patchApi(urlPermisos, modulosParaSusPermisos).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Éxito',
+          text: 'Permisos Modulos Actualizados',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false
+        }).then(() => {
+          this.estadoModal.emit(false);
+          window.location.reload();
           this.loading = false;
-        }
-      });
-      
+        });
+      },
+      error: (error: any) => {
+        console.error('Error al actualizar permisos:', error);
+        this.loading = false;
+      }
+    });
   }
 }
