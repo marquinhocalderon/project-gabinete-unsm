@@ -1,1 +1,30 @@
-<p>gabinetes works!</p>
+<span class="font-bold text-xl">Gabinetes</span>
+
+<div class="mt-5 mb-5">
+    <app-postgabinetes></app-postgabinetes>
+</div>
+
+<div class="grid grid-cols-12 gap-2 h-[500px] w-full overflow-auto">
+   @for (data of datos; track $index) {
+    <div class="col-span-3">
+
+        <div class="max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a class="w-full">
+                <img class="rounded-t-lg w-full object-cover h-44" [src]=" urlArchivoasver + data.imagenes[0].imagen" alt="" />
+            </a>
+            <div class="p-3">
+                <a href="#">
+                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white"> {{data.nombre_gabinete}} </h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{data.descripcion_referencia}}</p>
+                <div class="flex justify-between mt-6 mb-2">
+                    <app-verfotosgabinetes [modalId]="'static-modal' + data.id"></app-verfotosgabinetes>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+   }
+
+</div>

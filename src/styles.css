@@ -1,5 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Estilo personalizado para el scroll */
+::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo del track */
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; /* Color del scrollbar */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Cambia el color del scrollbar al pasar el ratón sobre él */
+  }
+  
+  
