@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApipeticionesService } from '../../../core/servicios/apipeticiones.service';
 import Swal from 'sweetalert2';
 import { TokensService } from '../../../core/auth/tokens.service';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-postfacultades',
@@ -17,6 +18,7 @@ export class PostfacultadesComponent {
   id_usuario :any
   ngOnInit(): void {
     
+    initFlowbite();
     this.id_usuario = this.token.decodeToken().sub;  
   }
 

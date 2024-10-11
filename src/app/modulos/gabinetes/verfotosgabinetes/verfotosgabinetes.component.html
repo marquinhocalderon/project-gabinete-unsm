@@ -1,12 +1,103 @@
-<button [attr.data-modal-target]="modalId" [attr.data-modal-toggle]="modalId" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    Ver mas
-</button>
+<div [id]="modalId"
+  class="fixed inset-0 z-50 flex items-center justify-center overflow-auto w-full h-full bg-black bg-opacity-50">
+  <div class="relative p-0 w-full h-screen">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <span (click)="clickCerrarModal()"
+        class="absolute right-5 top-5 inline-flex items-center justify-center rounded-full border border-purple-500 px-2.5 py-0.5 cursor-pointer text-purple-700">
+        <p class="whitespace-nowrap text-sm">Cerrar Modal</p>
 
-<div [id]="modalId" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <button (click)="clickCerrarModal()"
+          class="-me-1 ms-1.5 inline-block rounded-full bg-purple-200 p-0.5 text-purple-700 transition hover:bg-purple-300">
+          <span class="sr-only">Remove badge</span>
 
-      </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="size-3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </span>
+      <section>
+        <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <header class="text-center">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-3xl"> {{datos.nombre_gabinete}} </h2>
+            <p class="mx-auto mt-4 max-w-md text-gray-500">
+              {{datos.descripcion_referencia}}
+            </p>
+
+            <span
+              class=" mt-2 mb-5 inline-flex items-center justify-center rounded-full border border-emerald-500 px-2.5 py-0.5 text-emerald-700">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="-ms-1 me-1.5 size-4">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+
+              <p class="whitespace-nowrap text-sm"> {{datos.facultades.facultad}} </p>
+            </span><!-- Aquí puedes usar tu variable de fecha -->
+          </header>
+
+          <div id="default-carousel" class="relative w-full" data-carousel="slide">
+            <!-- Carousel wrapper -->
+            <div class="relative h-screen overflow-hidden rounded-lg">
+              <!-- Item 1 -->
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="{{ datos.imagenes[0]?.imagen ? urlArchivoasver + datos.imagenes[0].imagen : '/assets/notimage.png' }}"
+                  class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Image 1">
+              </div>
+              <!-- Item 2 -->
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="{{ datos.imagenes[1]?.imagen ? urlArchivoasver + datos.imagenes[1].imagen : '/assets/notimage.png' }}"
+                  class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Image 2">
+              </div>
+              <!-- Item 3 -->
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="{{ datos.imagenes[2]?.imagen ? urlArchivoasver + datos.imagenes[2].imagen : '/assets/notimage.png'}}"
+                  class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Image 3">
+              </div>
+
+            </div>
+            <!-- Slider indicators -->
+            <div class="absolute z-30 mb-2 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+              <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
+                data-carousel-slide-to="0"></button>
+              <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
+                data-carousel-slide-to="1"></button>
+              <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
+                data-carousel-slide-to="2"></button>
+            </div>
+            <!-- Slider controls -->
+            <button type="button"
+              class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              data-carousel-prev>
+              <span
+                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 1 1 5l4 4" />
+                </svg>
+                <span class="sr-only">Previous</span>
+              </span>
+            </button>
+            <button type="button"
+              class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+              data-carousel-next>
+              <span
+                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 9 4-4-4-4" />
+                </svg>
+                <span class="sr-only">Next</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
-  
+</div>

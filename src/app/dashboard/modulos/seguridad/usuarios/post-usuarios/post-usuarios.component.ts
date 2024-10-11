@@ -65,7 +65,10 @@ export class PostUsuariosComponent {
           title: 'Exitoso',
           text: 'Registro creado correctamente',
           icon: 'success',
-          confirmButtonText: 'Aceptar'
+          confirmButtonText: 'Aceptar',
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false
         }).then((result) => {
           if (result.isConfirmed) {
             this.PostCompletado.emit(true);
