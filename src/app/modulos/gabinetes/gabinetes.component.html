@@ -1,15 +1,19 @@
 <app-postgabinetes></app-postgabinetes>
 
 
-<form class="max-w-md mx-auto top-20 absolute">   
+<form class="max-w-md mx-auto top-20 absolute">
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     <div class="relative">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
             </svg>
         </div>
-        <input type="search" (change)="changeBuscador($event)" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar Gabinetes o Facultad" required />
+        <input type="search" (change)="changeBuscador($event)" id="default-search"
+            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Buscar Gabinetes o Facultad" required />
     </div>
 </form>
 
@@ -18,43 +22,54 @@
     @for (data of datosFiltrados; track $index) {
     <div class="max-w-sm mx-auto overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl">
         <div class="relative group">
-          <!-- Imagen principal -->
-          <img class="w-64 h-64 object-cover transition-transform duration-300 group-hover:scale-110"  src="{{ urlArchivoasver + data.imagenes[0].imagen }}"  alt="Imagen del gabinete">
-          
-          <!-- Overlay con información adicional -->
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 overflow-auto">
-            <h3 class="text-white text-xl font-bold mb-2">{{data.facultades.facultad}}</h3>
-            <p class="text-gray-200 text-sm mb-4 truncate"> {{data.descripcion_referencia}}</p>
-            <button (click)="mostrarModal(data)" class="bg-white text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200">
-              Ver detalles
-            </button>
-          </div>
+            <!-- Imagen principal -->
+            <img class="w-64 h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                src="{{ urlArchivoasver + data.imagenes[0].imagen }}" alt="Imagen del gabinete">
+
+            <!-- Overlay con información adicional -->
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 overflow-auto">
+                <h3 class="text-white text-xl font-bold mb-2">{{data.facultades.facultad}}</h3>
+                <p class="text-gray-200 text-sm mb-4 truncate"> {{data.descripcion_referencia}}</p>
+                <button (click)="mostrarModal(data)"
+                    class="bg-white text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200">
+                    Ver detalles
+                </button>
+            </div>
         </div>
-        
+
         <!-- Información básica visible siempre -->
         <div class="p-6 bg-white">
-          <div class="flex items-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-            <span class="text-gray-700 font-semibold">{{data.nombre_gabinete}} </span>
-          </div>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <span class="text-gray-600">Registro</span>
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-500 mr-2" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <span class="text-gray-700 font-semibold">{{data.nombre_gabinete}} </span>
             </div>
-            <span class="text-emerald-600 font-bold">{{$index + 1}} </span>
-          </div>
+            <div class="flex items-center justify-between">
+
+                
+               <select [id]="'opciones' + $index"  (change)="seleccionarOpcion($event, data)" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected value="">Opciones</option>
+                    <option value="editar">Editar</option>
+                    <option value="eliminar">Eliminar (Opcional)</option>
+                </select>
+
+            </div>
         </div>
-      </div>
+    </div>
     }
 
-    
+
 </div>
 
 @if (showModal) {
-    <app-verfotosgabinetes (estadoModal)="recibirEstadoModal($event)"></app-verfotosgabinetes>
+<app-verfotosgabinetes (estadoModal)="recibirEstadoModal($event)"></app-verfotosgabinetes>
+}
+
+@if (abriModalPut) {
+    <app-putgabinites (estadoModal3)="recibirEstadoModal4($event)"></app-putgabinites>
 }

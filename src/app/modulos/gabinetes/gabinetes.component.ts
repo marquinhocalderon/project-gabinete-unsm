@@ -4,11 +4,12 @@ import { ApipeticionesService } from '../../core/servicios/apipeticiones.service
 import { initFlowbite } from 'flowbite';
 import { VerfotosgabinetesComponent } from './verfotosgabinetes/verfotosgabinetes.component';
 import { EstadoGlobalGuardarDatosService } from '../../core/guardardatos/estado-global-guardar-datos.service';
+import { PutgabinitesComponent } from './putgabinites/putgabinites.component';
 
 @Component({
   selector: 'app-gabinetes',
   standalone: true,
-  imports: [PostgabinetesComponent, VerfotosgabinetesComponent],
+  imports: [PostgabinetesComponent, VerfotosgabinetesComponent, PutgabinitesComponent],
   templateUrl: './gabinetes.component.html',
   styleUrl: './gabinetes.component.css'
 })
@@ -67,5 +68,39 @@ getdata() {
     }
   });
 }
+
+abriModalPut: boolean = false;
+
+seleccionarOpcion(event: any, datos: any) {
+  console.log(event.target.value);
+  if (event.target.value === 'editar') {
+    this.abriModalPut = true;
+    this.serviciosglobal.setDatosServicioGlobal(datos);
+  } else {
+   this.abriModalPut = false;
+  }
+}
+
+recibirEstadoModal4(event: boolean) {
+  this.abriModalPut = event;
+  console.log(event);
+  
+  // Llamar a la función para reiniciar todos los selects si se recibe un true
+  if (!event) {
+    this.reiniciarSelects();
+  }
+}
+
+reiniciarSelects() {
+  // Seleccionar todos los elementos select en el DOM
+  const selects = document.querySelectorAll('select[id^="opciones"]');
+
+  // Restablecer cada select al valor por defecto (Opciones)
+  selects.forEach((select:any) => {
+    select.value = ""; // Reiniciar al valor por defecto
+  });
+}
+
+
 
 }
