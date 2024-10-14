@@ -14,7 +14,7 @@
             <label for="contrasena" class="text-sm font-medium text-white block mb-1">CONTRASEÑA</label>
             <label for="contrasena" (click)="clickMostrarPassword()" class="text-sm font-medium cursor-pointer text-white block mb-1">VER PASSWORD</label>
           </div>
-          <input id="contrasena" [type]="showPassword ? 'text' : 'password' " formControlName="passsword" class="w-full bg-white/10 border-white/20 text-white placeholder-white/50" />
+          <input id="contrasena" [type]="showPassword ? 'text' : 'password' " formControlName="password" class="w-full bg-white/10 border-white/20 text-white placeholder-white/50" />
         </div>
       </div>
       <button class="w-full p-2 bg-gray-800 hover:bg-gray-700 text-white" [disabled]="loading" type="submit"> {{loading ? 'CARGANDO...' : 'INGRESAR'}} </button>
