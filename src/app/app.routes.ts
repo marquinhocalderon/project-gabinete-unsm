@@ -6,6 +6,7 @@ import { InicioHomeComponent } from './dashboard/modulos/inicio-home/inicio-home
 import { UsuariosComponent } from './dashboard/modulos/seguridad/usuarios/usuarios.component';
 import { FacultadesComponent } from './modulos/facultades/facultades.component';
 import { GabinetesComponent } from './modulos/gabinetes/gabinetes.component';
+import { BackupsComponent } from './modulos/backups/backups.component';
 
 export const routes: Routes = [
   {
@@ -39,6 +40,10 @@ export const routes: Routes = [
       {
         path: 'gabinetes',
         component: GabinetesComponent,
+      },
+      {
+        path: "backups",
+        component: BackupsComponent
       }
     ]
   },
