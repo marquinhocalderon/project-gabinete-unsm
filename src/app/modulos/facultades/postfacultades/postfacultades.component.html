@@ -41,11 +41,80 @@
                   </span>
               </div>
               <!-- Modal body -->
-              <div class="p-4 md:p-5 space-y-4">
-                <div class="mb-6">
+              <div class="p-4 md:p-5 space-y-4 grid grid-col-12">
+                <div class="mb-6 col-span-12">
                     <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Facultad</label>
                     <input type="text" required name="facultad" id="large-input" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escribe aqui">
                 </div>
+                    <!-- IMAGENES -->
+                    <div class="col-span-12">
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input3">Subir
+                          Imágen</label>
+                      <input required
+                          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                          type="file" accept="image/*" id="file_input3" (change)="onFileSelected($event)" multiple />
+                  </div>
+  
+                  <!-- Modal footer -->
+  
+                
+  
+  
+  
+  
+  
+                  <div class="col-span-12">
+                      <!-- Utilizando un bucle for para mostrar las imágenes -->
+                      @for (imageUrl of imagenes; track imageUrl) {
+                      <div class="relative inline-block">
+                          <img [src]="imageUrl.url" (click)="verimagen(imageUrl.url)" alt="Imagen"
+                              class="w-32 h-32 object-cover rounded-2xl cursor-pointer ml-4">
+                          <!-- Imagen -->
+  
+                          <!-- Botón de Eliminación -->
+                          <span (click)="eliminarImagen(imageUrl.url)"
+                              class="absolute ml-2 top-0 right-0 bg-gray-500 text-white rounded-full h-6 w-6 flex items-center justify-center hover:bg-gray-600 cursor-pointer">
+                              <!-- Ícono "X" -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
+                                  fill="currentColor">
+                                  <path fill-rule="evenodd"
+                                      d="M5.293 5.293a1 1 0 0 1 1.414 1.414L10 11.414l3.293-3.293a1 1 0 1 1 1.414 1.414L11.414 12l3.293 3.293a1 1 0 0 1-1.414 1.414L10 13.414l-3.293 3.293a1 1 0 1 1-1.414-1.414L8.586 12 5.293 8.707a1 1 0 0 1 0-1.414z"
+                                      clip-rule="evenodd" />
+                              </svg>
+                          </span>
+                      </div>
+  
+                      }
+                  </div>
+
+                  @if (modalimg) {
+                    <div class="
+          overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex
+          " aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        
+                        <div class="relative bg-white rounded-lg overflow-hidden shadow-xl max-w-xl w-full max-h-full m-4"
+                            x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
+                            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
+                            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                            x-cloak>
+                            <!-- Modal panel -->
+                            <div class="p-1 px-3 flex justify-end items center border-b border-gray-200">
+                                <div (click)="cerrarmodalimg()"
+                                    class="bg-red-500 hover:bg-red-600 cursor-pointer hover:text-white font-sans text-white w-8 h-8 flex items-center justify-center rounded-full">
+                                    x
+                                </div>
+                            </div>
+                            <div class="flex justify-center items-center ">
+                                <img src="{{linkimagen}}" alt="Image" class="w-full h-full">
+                            </div>
+                        </div>
+                    </div>
+        
+                    }
+        
+  
               </div>
               <!-- Modal footer -->
               <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">

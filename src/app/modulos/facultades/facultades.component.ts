@@ -13,7 +13,7 @@ import { EstadoGlobalGuardarDatosService } from '../../core/guardardatos/estado-
   styleUrl: './facultades.component.css'
 })
 export class FacultadesComponent {
-
+  urlArchivoasver: string = import.meta.env.NG_APP_API + '/file/imagen_facultad/';
   constructor(private api: ApipeticionesService, private token : TokensService, private datosglobales : EstadoGlobalGuardarDatosService) { }
 
   ngOnInit(): void {

@@ -26,6 +26,91 @@ export class PutfacultadesComponent {
     console.log(this.id_usuario);
   }
 
+  showModal: boolean = false;
+  imagenes: any = [];
+  mostrarModal: boolean = false;
+  fieldlocked: boolean = true;
+
+  lastSelectedFiles: any;
+
+  onFileSelected(event: any) {
+    const files = event.target.files;
+
+    const input = event.target;
+    if (input.files && input.files.length > 0) {
+      // Almacenar los archivos seleccionados
+      this.lastSelectedFiles = input.files;
+    } else {
+      // Restaurar los archivos seleccionados anteriormente si no se seleccionan nuevos archivos
+      if (this.lastSelectedFiles) {
+        const dataTransfer = new DataTransfer();
+        for (let i = 0; i < this.lastSelectedFiles.length; i++) {
+          dataTransfer.items.add(this.lastSelectedFiles[i]);
+        }
+        input.files = dataTransfer.files;
+      }
+    }
+
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        // Verificar si el archivo no supera los 10 MB
+        const fileSizeInMB = file.size / (1024 * 1024);
+        if (fileSizeInMB > 15) {
+          alert('¡El tamaño de la imagen no debe superar los 15 MB!');
+          if (this.imagenes.length === 0) {
+            const fileInput = document.getElementById(
+              'file_input3'
+            ) as HTMLInputElement;
+            fileInput.value = '';
+          }
+          continue; // Saltar a la siguiente iteración si el archivo es demasiado grande
+        }
+
+        const imageUrl = URL.createObjectURL(file); // Obtén la URL temporal
+        const guardarFileyURL = { file: file, url: imageUrl };
+
+        // Verificar si la imagen ya está en la lista
+        const existingImage = this.imagenes.find(
+          (img: any) => img.file.name === file.name
+        );
+        if (existingImage) {
+          alert('¡Imagen repetida!');
+        } else if (this.imagenes.length >= 1) {
+          alert('Solo se admite 1 imagen');
+          break; // Salir del bucle si se alcanza el límite
+        } else {
+          this.imagenes.push(guardarFileyURL);
+          console.log(this.imagenes);
+        }
+      }
+    }
+  }
+
+  eliminarImagen(url: any) {
+    const index = this.imagenes.findIndex((item: any) => item.url === url);
+    if (index !== -1) {
+      this.imagenes.splice(index, 1);
+    }
+    if (this.imagenes.length === 0) {
+      const fileInput = document.getElementById(
+        'file_input3'
+      ) as HTMLInputElement;
+      fileInput.value = '';
+    }
+  }
+
+  linkimagen: string = '';
+  modalimg: boolean = false;
+  verimagen(link: string) {
+    this.linkimagen = link;
+    this.modalimg = !this.modalimg;
+  }
+  cerrarmodalimg() {
+    this.modalimg = !this.modalimg;
+  }
+
 
   loading:boolean = false;  
   enviarDatos(e:any){
@@ -34,14 +119,23 @@ export class PutfacultadesComponent {
     
     const formData = new FormData(e.target);
 
-    const formulario = {
-      facultad: formData.get('facultad'),
-      id_usuario: String(this.id_usuario)
+
+    formData.append('id_usuario', String(this.id_usuario));
+  
+    // Agregar imágenes al FormData
+    for (let i = 0; i < this.imagenes.length; i++) {
+      formData.append(
+        'imagenes',
+        this.imagenes[i].file,
+        this.imagenes[i].file.name
+      );
     }
 
-    const url = import.meta.env.NG_APP_API + '/facultades/' + this.datos.id;
+    formData.append('id_facultad', this.datos.id);
 
-    this.api.patchApi(url, formulario).subscribe({
+    const url = import.meta.env.NG_APP_API + '/facultades/' ;
+
+    this.api.patchApi(url, formData).subscribe({
       next: (data:any) => {
         console.log(data);
         this.loading = false;

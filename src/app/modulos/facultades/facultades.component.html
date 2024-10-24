@@ -8,6 +8,9 @@
                     Facultad
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    Imagen
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Opciones
                 </th>
             </tr>
@@ -18,6 +21,9 @@
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {{ data.facultad }}
                     </th>
+                    <td>
+                        <img [src]="urlArchivoasver + data.imagen" alt="Imagen" class="w-10 h-10 object-cover rounded-full">
+                    </td>
                     <td class="px-6 py-4 flex gap-5 ">
                         <span (click)="mostrarModal(data)" class=" cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >
                             Editar
