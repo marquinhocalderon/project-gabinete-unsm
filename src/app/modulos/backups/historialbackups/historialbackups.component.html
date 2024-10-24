@@ -19,74 +19,56 @@
       <section>
         <div class="mx-auto max-w-screen-xl h-screen px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <header class="text-center">
-            <h2 class="text-xl font-bold text-gray-900 sm:text-3xl"> {{datos.historial_subidos[0].gabinetes.nombre}}
-            </h2>
-            <span
-              class=" mt-2 mb-5 inline-flex items-center justify-center rounded-full border border-emerald-500 px-2.5 py-0.5 text-emerald-700">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-3xl"> {{datos.historial_subidos[0].gabinetes.nombre}} </h2>
+            <span class="mt-2 mb-5 inline-flex items-center justify-center rounded-full border border-emerald-500 px-2.5 py-0.5 text-emerald-700">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="-ms-1 me-1.5 size-4">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-
               <p class="whitespace-nowrap text-sm"> {{datos.historial_subidos[0].gabinetes.facultad.nombre}} </p>
-            </span><!-- Aquí puedes usar tu variable de fecha -->
+            </span>
           </header>
-
-
 
           <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                  <th scope="col" class="px-6 py-3">
-                    Fecha Registro
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Gabinete
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Facultad
-                  </th>
-
-                  <th scope="col" class="px-6 py-3">
-                    Usuario
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Backups
-                  </th>
-
+                  <th scope="col" class="px-6 py-3">Fecha Registro</th>
+                  <th scope="col" class="px-6 py-3">Gabinete</th>
+                  <th scope="col" class="px-6 py-3">Facultad</th>
+                  <th scope="col" class="px-6 py-3">Usuario</th>
+                  <th scope="col" class="px-6 py-3">Backups</th>
+                  <th scope="col" class="px-6 py-3">ZIP</th>
                 </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let data of datosHistorial; let i = index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ data.fecha_registro | date: 'dd-MM-yyyy HH:mm:ss' }}</th>
-                    <td class="px-6 py-4" >
-                      {{data.gabinetes.nombre}}
-                    </td>
-                    <td class="px-6 py-4">
-                      {{data.gabinetes.facultad.nombre}}
-                    </td>
-                    <td class="px-6 py-4">
-                      {{data.usuarios.nombre}} - {{data.usuarios.perfil.nombre}}
-                    </td>
-                    <td class="px-6 py-4 grid grid-cols-3">
-                      <a class="col-span-1 text-blue-500 underline" 
-                         *ngIf="data.documentos.length > 0" 
-                         [href]="urlArchivoasver + data.documentos[0].documento" 
+                <tr *ngFor="let data of datosHistorial; let i = index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ data.fecha_registro | date: 'dd-MM-yyyy HH:mm:ss' }}
+                  </th>
+                  <td class="px-6 py-4">{{ data.gabinetes.nombre }}</td>
+                  <td class="px-6 py-4">{{ data.gabinetes.facultad.nombre }}</td>
+                  <td class="px-6 py-4">{{ data.usuarios.nombre }} - {{ data.usuarios.perfil.nombre }}</td>
+                  <td class="px-6 py-4">
+                    <div *ngFor="let doc of data.documentos" class="grid grid-cols-3">
+                      <a class="text-blue-500 underline col-span-4" 
+                         [href]="urlArchivoasver + doc.documento" 
                          download>
-                        {{ data.documentos[0].documento.split('-').slice(2).join('-') }}
+                        {{ doc.documento.split('-').slice(2).join('-') }}
                       </a>
-                    </td>
-                    
-                  </tr>
-                
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <button (click)="downloadRowDocuments(data.documentos, data.gabinetes.nombre, formatFecha(data.fecha_registro))" class="text-blue-500 underline">
+                      <svg class="w-6 h-6 text-blue-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7Zm3 2h2.01v2.01h-2V8h2v2.01h-2V12h2v2.01h-2V16h2v2.01h-2v2H12V18h2v-1.99h-2V14h2v-1.99h-2V10h2V8.01h-2V6h2V4Z" clip-rule="evenodd"/>
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
-
-
-
         </div>
       </section>
     </div>
