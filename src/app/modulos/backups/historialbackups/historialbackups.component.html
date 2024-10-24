@@ -19,7 +19,8 @@
       <section>
         <div class="mx-auto max-w-screen-xl h-screen px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <header class="text-center">
-            <h2 class="text-xl font-bold text-gray-900 sm:text-3xl"> {{datos.historial_subidos[0].gabinetes.nombre}} </h2>
+            <h2 class="text-xl font-bold text-gray-900 sm:text-3xl"> {{datos.historial_subidos[0].gabinetes.nombre}}
+            </h2>
             <span
               class=" mt-2 mb-5 inline-flex items-center justify-center rounded-full border border-emerald-500 px-2.5 py-0.5 text-emerald-700">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -32,7 +33,60 @@
             </span><!-- Aquí puedes usar tu variable de fecha -->
           </header>
 
-         
+
+
+          <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Fecha Registro
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Gabinete
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Facultad
+                  </th>
+
+                  <th scope="col" class="px-6 py-3">
+                    Usuario
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Backups
+                  </th>
+
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let data of datosHistorial; let i = index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ data.fecha_registro | date: 'dd-MM-yyyy HH:mm:ss' }}</th>
+                    <td class="px-6 py-4" >
+                      {{data.gabinetes.nombre}}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{data.gabinetes.facultad.nombre}}
+                    </td>
+                    <td class="px-6 py-4">
+                      {{data.usuarios.nombre}} - {{data.usuarios.perfil.nombre}}
+                    </td>
+                    <td class="px-6 py-4 grid grid-cols-3">
+                      <a class="col-span-1 text-blue-500 underline" 
+                         *ngIf="data.documentos.length > 0" 
+                         [href]="urlArchivoasver + data.documentos[0].documento" 
+                         download>
+                        {{ data.documentos[0].documento.split('-').slice(2).join('-') }}
+                      </a>
+                    </td>
+                    
+                  </tr>
+                
+              </tbody>
+            </table>
+          </div>
+
+
+
         </div>
       </section>
     </div>
