@@ -1,102 +1,114 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PostbackupsComponent } from './postbackups/postbackups.component';
 import { initFlowbite } from 'flowbite';
 import { ApipeticionesService } from '../../core/servicios/apipeticiones.service';
 import { EstadoGlobalGuardarDatosService } from '../../core/guardardatos/estado-global-guardar-datos.service';
 import { HistorialbackupsComponent } from './historialbackups/historialbackups.component';
+import { CommonModule } from '@angular/common';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-backups',
   standalone: true,
-  imports: [PostbackupsComponent, HistorialbackupsComponent],
+  imports: [PostbackupsComponent, HistorialbackupsComponent, CommonModule],
   templateUrl: './backups.component.html',
-  styleUrl: './backups.component.css'
+  styleUrl: './backups.component.css',
+  providers: [DatePipe]
 })
 export class BackupsComponent {
-  constructor(private apiservicios: ApipeticionesService, private serviciosglobal: EstadoGlobalGuardarDatosService) { }
-  urlArchivoasver: string = import.meta.env.NG_APP_API + '/file/imagen/';
+  @Input() modalId!: string;
+  @Output() estadoModal = new EventEmitter<boolean>();
+
+  urlArchivoasver: string = import.meta.env.NG_APP_API + '/file/txt/';
+  datos: any;
+  datosHistorial: any = [];
+
+  constructor(private datosglobales: EstadoGlobalGuardarDatosService, private datePipe: DatePipe, private apiservios: ApipeticionesService, private http: HttpClient) {}
+
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.getdata();
     initFlowbite();
+   this.getHistorialBackups();
   }
 
-  showModal: boolean = false;
+  getHistorialBackups(): void {
 
-  mostrarModal(datos: any){
+    const url = import.meta.env.NG_APP_API + '/detallebackups';
 
-    this.showModal = true;
-
-    this.serviciosglobal.setDatosServicioGlobal(datos);
+    this.apiservios.getApi(url).subscribe(
+      (data: any) => {
+        console.log('Historial de backups:', data);
+        this.datosHistorial = data;
+      },
+      (error: any) => {
+        console.error('Error al obtener el historial de backups:', error);
+      }
+    );
 
   }
 
-  recibirEstadoModal(event: boolean){
-    this.showModal = event;
+  clickCerrarModal(): void {
+    this.estadoModal.emit(false);
   }
 
+  formatFecha(fecha: string): string {
+    return this.datePipe.transform(fecha, 'dd-MM-yyyy') || '';
+  }
 
-  valor: string = ''; // Define el tipo como string
-datos: any[] = [];
-datosFiltrados: any[] = []; // Para almacenar los resultados filtrados
-changeBuscador(event: any) {
-  this.valor = event.target.value.trim(); // Elimina espacios en blanco
+  downloadRowDocuments(documents: any[], gabinete: string, fecha: string): void {
+    const zip = new JSZip();
+    const folder = zip.folder("documentos"); // Crear una carpeta en el zip
 
-  // Filtra los datos según el valor ingresado
-  this.datosFiltrados = this.datos.filter(item => {
-    const nombreGabinete = item.historial_subidos[0].gabinetes.nombre  ? item.historial_subidos[0].gabinetes.nombre.toLowerCase() : '';
-    const facultad = item.historial_subidos[0].gabinetes.facultad.nombre   && item.historial_subidos[0].gabinetes.facultad.nombre ? item.historial_subidos[0].gabinetes.facultad.nombre.toLowerCase() : '';
-
-    return nombreGabinete.includes(this.valor.toLowerCase()) || facultad.includes(this.valor.toLowerCase());
-  });
-}
-
-nombreGabinete: string = '';
-
-getdata() {
-  const url = import.meta.env.NG_APP_API + '/backups';
-  this.apiservicios.getApi(url).subscribe({
-    next: (data: any) => {
-      console.log(data);
-      this.datos = data;
-      this.datosFiltrados = data; // Inicializa los datos filtrados con los datos originales
-    },
-    error: (error: any) => {
-      console.log(error);
+    // Verifica si la carpeta se creó correctamente
+    if (!folder) {
+      console.error("Error al crear la carpeta en el zip.");
+      return;
     }
-  });
-}
 
-abriModalPut: boolean = false;
+    const fetchPromises: Promise<void>[] = [];
 
-seleccionarOpcion(event: any, datos: any) {
-  console.log(event.target.value);
-  if (event.target.value === 'editar') {
-    this.abriModalPut = true;
-    this.serviciosglobal.setDatosServicioGlobal(datos);
-  } else {
-   this.abriModalPut = false;
+    documents.forEach(doc => {
+      const docUrl = this.urlArchivoasver + doc.documento;
+
+      const fetchPromise = fetch(docUrl)
+        .then(response => {
+          if (!response.ok) throw new Error(`No se pudo obtener ${docUrl}`);
+          return response.blob();
+        })
+        .then(blob => {
+          folder.file(doc.documento, blob);
+        });
+
+      fetchPromises.push(fetchPromise);
+    });
+
+    Promise.all(fetchPromises)
+      .then(() => {
+        const zipName = `${gabinete}_${fecha}.zip`;
+        return zip.generateAsync({ type: "blob" }).then(content => {
+          saveAs(content, zipName);
+        });
+      })
+      .catch(error => {
+        console.error("Error al descargar documentos:", error);
+      });
   }
-}
 
-recibirEstadoModal4(event: boolean) {
-  this.abriModalPut = event;
-  console.log(event);
-  
-  // Llamar a la función para reiniciar todos los selects si se recibe un true
-  if (!event) {
-    this.reiniciarSelects();
+
+  openFileInNewTab(documento: string): void {
+    const fileUrl = `${this.urlArchivoasver}${documento}`;
+    this.http.get(fileUrl, { responseType: 'blob' }).subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const newWindow = window.open(url);
+      if (newWindow) {
+        newWindow.opener = null;
+      }
+    });
   }
+
 }
 
-reiniciarSelects() {
-  // Seleccionar todos los elementos select en el DOM
-  const selects = document.querySelectorAll('select[id^="opciones"]');
-
-  // Restablecer cada select al valor por defecto (Opciones)
-  selects.forEach((select:any) => {
-    select.value = ""; // Reiniciar al valor por defecto
-  });
-}
-}

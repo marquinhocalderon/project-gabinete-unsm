@@ -1,127 +1,113 @@
-<header class="bg-white mt-5">
-    <div class="mx-auto max-w-screen-xl px-1 py-8 sm:px-2 sm:py-12 lg:px-2">
-      <div class="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">Backups</h1>
-  
-          <p class="mt-1.5 text-sm text-gray-500">
-            Estos es la secciones de los backups
-          </p>
-        </div>
-  
-        <div class="flex items-center gap-4">
-    
 
-          <button data-modal-target="static-modal" data-modal-toggle="static-modal"
-          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="button">
-         +  Registrar Backups
-      </button>
-        </div>
-      </div>
-    </div>
-  </header>
+<button data-modal-target="static-modal" data-modal-toggle="static-modal"
+    class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+    <span
+        class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+        AGREGAR BACKUP
+    </span>
+</button>
+
 <!-- Modal toggle -->
 
 
 <!-- Main modal -->
 <div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <form id="formulario" class="relative p-4 w-full max-w-2xl max-h-full" (submit)="enviarFormulario($event)">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Registrar Backups
-                </h3>
-                <button type="button"
-                    (click)="limpiarformulario($event)"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-hide="static-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4 grid grid-cols-12">
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <form id="formulario" class="relative p-4 w-full max-w-2xl max-h-full" (submit)="enviarFormulario($event)">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          Registrar Backups
+        </h3>
+        <button type="button" (click)="limpiarformulario($event)"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          data-modal-hide="static-modal">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="p-4 md:p-5 space-y-4 grid grid-cols-12">
 
 
 
-                <div class="col-span-12">
-                    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecionar Gabinete</label>
-                    <select id="countries" name="id_gabinete"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected value="">Seleccionar</option>
-                        @for (data of datosfacultad; track $index) {
-                        <option value="{{data.id}}">{{data.nombre_gabinete}}</option>
-                        }
-                    </select>
-                </div>
-
-
-                <div class="col-span-12">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">¡Subir
-                      3 maximos TXT!</label>
-                    <input (change)="changePdf($event)"
-                      class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                      id="file_input_pdf" type="file" accept=".txt" multiple>
-                    <div class="grid grid-cols-1 gap-4 mt-2">
-                      @for (pdf of archivosPdf; track $index) {
-                      <span id="badge-dismiss-red"
-                        class="inline-flex items-center px-2 py-1 me-1 text-sm font-medium text-gray-800 bg-gray-300 rounded dark:bg-gray-900 dark:text-red-300 col-span-1 max-sm:col-span-6 w-auto">
-                        <a [href]="pdf.url" target="_blank" class="w-full">{{pdf.file.name}}</a>
-                        <span (click)="removePdf(pdf.url)"
-                          class="inline-flex items-center justify-center w-6 h-6 ms-1 text-sm text-gray-400 bg-transparent rounded-full hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-300 cursor-pointer"
-                          aria-label="Remove">
-                          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                          </svg>
-                          <span class="sr-only">Remove badge</span>
-                        </span>
-                      </span>
-                      }
-                    </div>
-                  </div>
-
-
-
-            </div>
-            @if (modalimg) {
-            <div class="
-  overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex
-  " aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-                <div class="relative bg-white rounded-lg overflow-hidden shadow-xl max-w-xl w-full max-h-full m-4"
-                    x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
-                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                    x-cloak>
-                    <!-- Modal panel -->
-                    <div class="p-1 px-3 flex justify-end items center border-b border-gray-200">
-                        <div (click)="cerrarmodalimg()"
-                            class="bg-red-500 hover:bg-red-600 cursor-pointer hover:text-white font-sans text-white w-8 h-8 flex items-center justify-center rounded-full">
-                            x
-                        </div>
-                    </div>
-                    <div class="flex justify-center items-center ">
-                        <img src="{{linkimagen}}" alt="Image" class="w-full h-full">
-                    </div>
-                </div>
-            </div>
-
+        <div class="col-span-12">
+          <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecionar
+            Gabinete</label>
+          <select id="countries" name="id_gabinete"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected value="">Seleccionar</option>
+            @for (data of datosfacultad; track $index) {
+            <option value="{{data.id}}">{{data.nombre_gabinete}}</option>
             }
-
-            <button type="submit" [disabled]="loading"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 col-span-2 mb-5 ml-5"> {{loading  ? 'Guardando...' : 'Guardar' }}  </button>
+          </select>
         </div>
 
-    </form>
+
+        <div class="col-span-12">
+          <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">¡Subir
+            3 maximos TXT!</label>
+          <input (change)="changePdf($event)"
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="file_input_pdf" type="file" accept=".txt" multiple>
+          <div class="grid grid-cols-1 gap-4 mt-2">
+            @for (pdf of archivosPdf; track $index) {
+            <span id="badge-dismiss-red"
+              class="inline-flex items-center px-2 py-1 me-1 text-sm font-medium text-gray-800 bg-gray-300 rounded dark:bg-gray-900 dark:text-red-300 col-span-1 max-sm:col-span-6 w-auto">
+              <a [href]="pdf.url" target="_blank" class="w-full">{{pdf.file.name}}</a>
+              <span (click)="removePdf(pdf.url)"
+                class="inline-flex items-center justify-center w-6 h-6 ms-1 text-sm text-gray-400 bg-transparent rounded-full hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-300 cursor-pointer"
+                aria-label="Remove">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+                <span class="sr-only">Remove badge</span>
+              </span>
+            </span>
+            }
+          </div>
+        </div>
+
+
+
+      </div>
+      @if (modalimg) {
+      <div class="
+  overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex
+  " aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+        <div class="relative bg-white rounded-lg overflow-hidden shadow-xl max-w-xl w-full max-h-full m-4"
+          x-transition:enter="transition ease-out duration-300 transform opacity-0 scale-95"
+          x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-200 transform opacity-100 scale-100"
+          x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" x-cloak>
+          <!-- Modal panel -->
+          <div class="p-1 px-3 flex justify-end items center border-b border-gray-200">
+            <div (click)="cerrarmodalimg()"
+              class="bg-red-500 hover:bg-red-600 cursor-pointer hover:text-white font-sans text-white w-8 h-8 flex items-center justify-center rounded-full">
+              x
+            </div>
+          </div>
+          <div class="flex justify-center items-center ">
+            <img src="{{linkimagen}}" alt="Image" class="w-full h-full">
+          </div>
+        </div>
+      </div>
+
+      }
+
+      <button type="submit" [disabled]="loading"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 col-span-2 mb-5 ml-5">
+        {{loading ? 'Guardando...' : 'Guardar' }} </button>
+    </div>
+
+  </form>
 </div>
