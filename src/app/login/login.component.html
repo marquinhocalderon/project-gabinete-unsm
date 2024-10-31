@@ -1,34 +1,44 @@
-<div class="flex min-h-screen">
-  <div class="flex-1 bg-gradient-to-br from-teal-400 to-green-500 p-8 flex flex-col justify-center relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-16 h-16 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-16 h-16 bg-white opacity-10 rounded-full translate-x-1/2 translate-y-1/2"></div>
-    <form class="z-10 max-w-md w-full mx-auto space-y-6" [formGroup]="formulario" (ngSubmit)="sendForm()">
-      <h1 class="text-4xl font-bold text-white mb-8">LOGIN</h1>
-      <div class="space-y-4">
-        <div>
-          <label for="usuario" class="text-sm font-medium text-white block mb-1">USUARIO</label>
-          <input id="usuario" formControlName="username" class="w-full p-3 bg-white/10 border-white/20 text-white placeholder-white/50" />
-        </div>
-        <div>
-          <div class="flex justify-between">
-            <label for="contrasena" class="text-sm font-medium text-white block mb-1">CONTRASEÑA</label>
-            <label for="contrasena" (click)="clickMostrarPassword()" class="text-sm font-medium cursor-pointer text-white block mb-1">VER PASSWORD</label>
-          </div>
-          <input id="contrasena" [type]="showPassword ? 'text' : 'password' " formControlName="password" class="w-full bg-white/10 border-white/20 text-white placeholder-white/50" />
-        </div>
+<div class="min-h-screen flex items-center justify-center">
+  <!-- Full-screen card with diagonal effect -->
+  <div class="w-full h-screen flex relative bg-unsm-green ">
+    
+    <div class="absolute bg-gray-100"></div>
+    <!-- Left Side (Diagonal Background with Login Form) -->
+    <div  class="absolute w-1/2 h-full text-white p-8 flex flex-col justify-center items-center clip-diagonal bg-white">
+      <div style="background: linear-gradient(135deg, #135f84, #1AD895);"  class="px-[1920px] py-28">
+        <h2 class="text-3xl font-bold mb-6">LOGIN</h2>
+        <form class="w-screen max-w-96" [formGroup]="formulario" (ngSubmit)="sendForm()">
+          <label class="block mb-2 text-sm font-bold" for="usuario">USUARIO</label>
+          <input
+            type="text"
+            id="usuario"
+            formControlName="username" 
+            class="w-full p-3 mb-4 text-gray-900 rounded-md focus:outline-none"
+            placeholder="Ingresa tu usuario"
+          />
+          
+          <label class="block mb-2 text-sm font-bold" for="contrasena">CONTRASEÑA</label>
+          <input
+            type="password"
+            id="contrasena"
+      formControlName="password"
+            class="w-full p-3 mb-6 text-gray-900 rounded-md focus:outline-none"
+            placeholder="Ingresa tu contraseña"
+          />
+          
+          <button type="submit" class="w-full bg-gray-800 text-white py-2 rounded-md font-bold hover:bg-gray-700">
+            Ingresar
+          </button>
+          <a href="#" class="text-sm text-white mt-4 block text-center hover:underline">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </form>
       </div>
-      <button class="w-full p-2 bg-gray-800 hover:bg-gray-700 text-white" [disabled]="loading" type="submit"> {{loading ? 'CARGANDO...' : 'INGRESAR'}} </button>
-      <div class="text-center">
-        <a href="#" class="text-sm text-white hover:underline">OLVIDASTE CONTRASEÑA?</a>
-      </div>
-    </form>
-  </div>
-  <div class=" max-lg:hidden flex-1 bg-gradient-to-tl from-green-600 to-green-500 p-8 flex flex-col items-center justify-center relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-16 h-16 bg-white opacity-10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 left-0 w-16 h-16 bg-white opacity-10 rounded-full -translate-x-1/2 translate-y-1/2"></div>
-    <div class="z-10 text-center">
-      <img src="/favicon.ico" alt="UNSM Logo" width="200" height="200" class="mx-auto mb-8" />
-      <h2 class="text-6xl font-bold text-white">UNSM</h2>
     </div>
+
+    <!-- Right Side (Logo and Title) -->
+    <div class="w-1/2 bg-unsm-green p-8 flex flex-col justify-center items-center text-center">
+    </div>
+    <img src="assets/logo.png" alt="UNSM Logo" class="">
   </div>
 </div>

@@ -1,0 +1,13 @@
+  /* Colores específicos de la UNSM */
+  .bg-unsm-green {
+    background-color: #2e7d32; /* Verde específico de UNSM */
+  }
+  
+  .bg-unsm-blue {
+    background-color: #004d73; /* Azul específico de UNSM */
+  }
+  
+  /* Clase para crear la diagonal */
+  .clip-diagonal {
+    clip-path: polygon(0 0, 85% 0, 100% 100%, 0% 100%);
+  }

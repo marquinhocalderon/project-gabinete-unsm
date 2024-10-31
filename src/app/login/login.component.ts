@@ -52,6 +52,7 @@ export class LoginComponent {
   sendForm() {
     this.loading = true
     const datosEnviar: any = this.formulario.getRawValue();
+    console.log(datosEnviar)
     const urlApi = import.meta.env.NG_APP_API + '/auth/login';
 
     this.api.postApi(urlApi, datosEnviar).subscribe({
