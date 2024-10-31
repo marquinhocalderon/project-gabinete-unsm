@@ -1,42 +1,79 @@
+<div class="p-5 shadow-md mb-10 flex justify-center flex-col items-center bg-white ">
+    
+    <h1 class="text-3xl font-bold tracking-tight">Facultades</h1>
+    <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">BIENVENIDO</p>
+    
+    </div>
+    
+
+<div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+        <li class="me-2" role="presentation">
+            <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Backups Por Facultad</button>
+        </li>
+        <li class="me-2" role="presentation">
+            <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Agregar Backup</button>
+        </li>
+    </ul>
+</div>
+<div id="default-tab-content">
+    <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <p class="text-sm text-gray-500 dark:text-gray-400">Aca ffalta el diseño con todo</p>
+    </div>
+    <div class="hidden p-4 rounded-lg h-[70vh] bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+        <div class="relative overflow-x-auto">
+            
 <app-postfacultades></app-postfacultades>
 
-<div class="relative overflow-x-auto">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Facultad
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Imagen
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Opciones
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (data of datos; track $index) {
-                <tr class="bg-white dark:bg-gray-800">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ data.facultad }}
-                    </th>
-                    <td>
-                        <img [src]="urlArchivoasver + data.imagen" alt="Imagen" class="w-10 h-10 object-cover rounded-full">
-                    </td>
-                    <td class="px-6 py-4 flex gap-5 ">
-                        <span (click)="mostrarModal(data)" class=" cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >
-                            Editar
-                        </span>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Facultad
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Imagen
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Opciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (data of datos; track $index) {
+                        <tr class="bg-white dark:bg-gray-800">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ data.facultad }}
+                            </th>
+                            <td>
+                                <img [src]="urlArchivoasver + data.imagen" alt="Imagen" class="w-10 h-10 object-cover rounded-full">
+                            </td>
+                            <td class="px-6 py-4 flex gap-5 ">
+                                <span (click)="mostrarModal(data)" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 cursor-pointer">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
+                                      </svg>
+                                       Editar
+                                </span>
+   
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+        @if (verModal) {
+            
+            <app-putfacultades (estadoModal2)="cerrarModal($event)"></app-putfacultades>
+        }
+        
+        
+    </div>
 </div>
 
-@if (verModal) {
-    
-    <app-putfacultades (estadoModal2)="cerrarModal($event)"></app-putfacultades>
-}
+
+
+
 
