@@ -1,10 +1,10 @@
-<div class="min-h-screen flex items-center justify-center">
+<div class="max-lg:hidden min-h-screen flex items-center justify-center">
   <!-- Full-screen card with diagonal effect -->
-  <div class="w-full h-screen flex relative bg-unsm-green ">
+  <div class="w-full h-screen flex relative bg-unsm-green overflow-hidden max-lg:bg-white">
     
-    <div class="absolute bg-gray-100"></div>
+    <div class="absolute bg-gray-100 max-lg:bg-white"></div>
     <!-- Left Side (Diagonal Background with Login Form) -->
-    <div  class="absolute w-1/2 h-full text-white p-8 flex flex-col justify-center items-center clip-diagonal bg-white">
+    <div  class="absolute max-lg:block w-1/2 h-full text-white p-8 flex flex-col justify-center items-center clip-diagonal bg-white">
       <div style="background: linear-gradient(135deg, #135f84, #1AD895);"  class="px-[1920px] py-28">
         <h2 class="text-3xl font-bold mb-6">LOGIN</h2>
         <form class="w-screen max-w-96" [formGroup]="formulario" (ngSubmit)="sendForm()">
@@ -39,6 +39,38 @@
     <!-- Right Side (Logo and Title) -->
     <div class="w-1/2 bg-unsm-green p-8 flex flex-col justify-center items-center text-center">
     </div>
-    <img src="assets/logo.png" alt="UNSM Logo" class="">
-  </div>
+    <img src="assets/logo.png" alt="UNSM Logo" class="w-[580px] xl:w-[650px]">
+  </div>  
 </div>
+
+<div class="flex items-center justify-center h-screen bg-gradient-to-br from-blue-800 to-green-400">
+  <form class="w-full max-w-sm px-8" [formGroup]="formulario" (ngSubmit)="sendForm()">
+    <h2 class="text-3xl font-bold text-center mb-6 text-white">LOGIN</h2>
+    <label class="block mb-2 text-sm font-bold text-gray-100" for="usuario">USUARIO</label>
+    <input
+      type="text"
+      id="usuario"
+      formControlName="username"
+      class="w-full p-3 mb-4 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="Ingresa tu usuario"
+    />
+
+    <label class="block mb-2 text-sm font-bold text-gray-100" for="contrasena">CONTRASEÑA</label>
+    <input
+      type="password"
+      id="contrasena"
+      formControlName="password"
+      class="w-full p-3 mb-6 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      placeholder="Ingresa tu contraseña"
+    />
+
+    <button type="submit" class="w-full bg-gray-800 text-white py-2 rounded-md font-bold hover:bg-gray-700">
+      Ingresar
+    </button>
+    <a href="#" class="text-sm text-blue-100 mt-4 block text-center hover:underline">
+      ¿Olvidaste tu contraseña?
+    </a>
+  </form>
+</div>
+
+
