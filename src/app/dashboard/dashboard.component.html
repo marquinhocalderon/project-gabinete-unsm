@@ -1,24 +1,128 @@
-<app-navbar-menu (clickDelMenu)="recogerRespuestaDelHijo($event)"></app-navbar-menu>
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+   <div class="flex">
+     <!-- Sidebar -->
+     <aside class="w-64 bg-gray-200 dark:bg-gray-800 min-h-screen p-4 shadow-lg">
+       <div class="mb-8">
+         <img
+           src="/placeholder.svg?height=80&width=80"
+           alt="Logo"
+           class="mx-auto h-20 w-20"
+         />
+       </div>
+       
+       <nav class="space-y-2">
+        <a
+        routerLink="/dashboard"
+        class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+      >
+        <!-- Icono de Inicio (SVG) -->
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+        </svg>
+        <span class="font-medium">INICIO</span>
+      </a>
+      
+        @for (modulo of modulosQuetieneUsuario; track modulo.id) {
 
-<!-- y aca otro es modificar -->
-@if (!sidebarAbierto) {
+          @if (modulo.nombre_modulo === 'seguridad') {
+            <a
+            routerLink="/dashboard/seguridad/usuarios"
+            class="flex items-center cursor-pointer gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+          >
+            <!-- Icono de Usuarios (SVG) -->
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+             <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>
+           </svg>
+           
+            <span class="font-medium">USUARIOS</span>
+          </a>
+          }
+ 
+          @if (modulo.nombre_modulo === 'facultades') {
+            <a
+            routerLink="/dashboard/facultades"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+          >
+            <!-- Icono de Facultades (SVG) -->
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 6H5m2 3H5m2 3H5m2 3H5m2 3H5m11-1a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2M7 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm8 7a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+           </svg>
+           
+            <span class="font-medium">FACULTADES</span>
+          </a>
+          }
+          
+          @if (modulo.nombre_modulo === 'gabinetes') {
+            <a
+            routerLink="/dashboard/gabinetes"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+          >
+            <!-- Icono de Gabinetes (SVG) -->
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.283 8h-4.285m3.85 3h-3.85m4.061-6H11v11h8.27l1.715-9.847A.983.983 0 0 0 20.059 5ZM6.581 13.23h-.838A13.752 13.752 0 0 1 5.622 11c-.02-.745.02-1.49.12-2.23h1.04c.252 0 .496-.088.683-.245a.927.927 0 0 0 .329-.61l.2-1.872a.888.888 0 0 0-.045-.39.936.936 0 0 0-.212-.34 1.017 1.017 0 0 0-.341-.231A1.08 1.08 0 0 0 6.983 5h-2.06a1.27 1.27 0 0 0-.699.204 1.135 1.135 0 0 0-.442.543A15.066 15.066 0 0 0 3.007 11a15.656 15.656 0 0 0 .795 5.229c.165.462 1.342.771 1.864.771h1.116c.142 0 .283-.028.413-.082.13-.053.246-.132.341-.23a.936.936 0 0 0 .212-.34.889.889 0 0 0 .046-.391l-.201-1.873a.927.927 0 0 0-.33-.609 1.059 1.059 0 0 0-.682-.245ZM10 18v1h10v-1a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2Z"/>
+           </svg>
+           
+            <span class="font-medium">GABINETES</span>
+          </a>
+          }
 
-<app-aside-menu></app-aside-menu>
-}
+          @if (modulo.nombre_modulo === 'backups') {
+            
+            <a
+            routerLink="/dashboard/backups"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+          >
+            <!-- Icono de Backups (SVG) -->
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8.032 12 1.984 1.984 4.96-4.96m4.55 5.272.893-.893a1.984 1.984 0 0 0 0-2.806l-.893-.893a1.984 1.984 0 0 1-.581-1.403V7.04a1.984 1.984 0 0 0-1.984-1.984h-1.262a1.983 1.983 0 0 1-1.403-.581l-.893-.893a1.984 1.984 0 0 0-2.806 0l-.893.893a1.984 1.984 0 0 1-1.403.581H7.04A1.984 1.984 0 0 0 5.055 7.04v1.262c0 .527-.209 1.031-.581 1.403l-.893.893a1.984 1.984 0 0 0 0 2.806l.893.893c.372.372.581.876.581 1.403v1.262a1.984 1.984 0 0 0 1.984 1.984h1.262c.527 0 1.031.209 1.403.581l.893.893a1.984 1.984 0 0 0 2.806 0l.893-.893a1.985 1.985 0 0 1 1.403-.581h1.262a1.984 1.984 0 0 0 1.984-1.984V15.7c0-.527.209-1.031.581-1.403Z"/>
+           </svg>
+           
+            <span class="font-medium">BACKUPS</span>
+          </a>
+          }
+       }
 
-<!-- aca modificar es uno -->
 
-@if (!sidebarAbierto) {
-<div class="p-4 sm:ml-64">
-   <div class="p-4 mt-14">
-      <router-outlet></router-outlet>
+
+         
+   
+   
+         
+       </nav>
+       
+       <div class="mt-auto pt-20 space-y-2">
+         <!-- <a
+           routerLink="/perfil"
+           class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+         >
+           <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5h.01M12 19h.01"></path>
+           </svg>
+           <span class="font-medium">Mi perfil</span>
+         </a>
+          -->
+         <a
+           href="/"
+           class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+         >
+           <!-- Icono de Salir (SVG) -->
+           <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 12 6 6v12z"></path>
+           </svg>
+           <span class="font-medium">Salir</span>
+         </a>
+       </div>
+     </aside>
+ 
+     <!-- Main Content -->
+     <main class="flex-1 p-8">
+       <div class="mx-auto max-w-7xl">
+         <!-- Add your dashboard content here -->
+         <div class="">
+           <router-outlet></router-outlet>
+         </div>
+       </div>
+     </main>
    </div>
-</div>
-}
-@else {
-<div class="p-4">
-   <div class="p-4   mt-14">
-      <router-outlet></router-outlet>
-   </div>
-</div>
-}
+ </div>
+ 

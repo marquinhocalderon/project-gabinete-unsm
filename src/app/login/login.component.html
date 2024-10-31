@@ -39,7 +39,7 @@
     <!-- Right Side (Logo and Title) -->
     <div class="w-1/2 bg-unsm-green p-8 flex flex-col justify-center items-center text-center">
     </div>
-    <img src="assets/logo.png" alt="UNSM Logo" class="w-[580px] xl:w-[650px]">
+    <img src="assets/logo.png" alt="UNSM Logo" class="w-[580px] xl:w-[700px]">
   </div>  
 </div>
 
@@ -64,8 +64,8 @@
       placeholder="Ingresa tu contraseña"
     />
 
-    <button type="submit" class="w-full bg-gray-800 text-white py-2 rounded-md font-bold hover:bg-gray-700">
-      Ingresar
+    <button type="submit" [disabled]="loading" class="w-full bg-gray-800 text-white py-2 rounded-md font-bold hover:bg-gray-700">
+      {{loading ? 'Ingresar...' : 'Ingresar'}}
     </button>
     <a href="#" class="text-sm text-blue-100 mt-4 block text-center hover:underline">
       ¿Olvidaste tu contraseña?
