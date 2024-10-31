@@ -103,6 +103,11 @@ export class PermisosUsuariosComponent {
   enviarDatos(e: any): void {
     this.loading = true;
     e.preventDefault();
+
+    if(this.loading){
+      this.estado_global.showLoadingSpinner();
+    }
+
   
     const elementosFormulario = e.target.elements;
     const modulosParaSusPermisos: any[] = []; // Lista para almacenar módulos y permisos

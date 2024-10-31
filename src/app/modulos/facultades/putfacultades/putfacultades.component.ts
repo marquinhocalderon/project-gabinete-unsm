@@ -116,6 +116,10 @@ export class PutfacultadesComponent {
   enviarDatos(e:any){
     e.preventDefault();
     this.loading = true;
+
+    if(this.loading){
+      this.datosglobales.showLoadingSpinner();
+    }
     
     const formData = new FormData(e.target);
 

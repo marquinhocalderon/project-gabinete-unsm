@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular
 import { ApipeticionesService } from '../../../../../core/servicios/apipeticiones.service';
 import { initFlowbite } from 'flowbite';
 import Swal from 'sweetalert2';
+import { EstadoGlobalGuardarDatosService } from '../../../../../core/guardardatos/estado-global-guardar-datos.service';
 
 @Component({
   selector: 'app-post-usuarios',
@@ -21,7 +22,7 @@ export class PostUsuariosComponent {
   url_perfiles = import.meta.env.NG_APP_API + "/perfiles"; // URL de la API
   url_usuarios = import.meta.env.NG_APP_API + "/usuarios"; // URL de la API
 
-  constructor(private api: ApipeticionesService) { }
+  constructor(private api: ApipeticionesService,  private estadoglobalcontodo : EstadoGlobalGuardarDatosService) { }
 
   ngOnInit(): void {
     initFlowbite(); // Inicializar Flowbite
@@ -57,6 +58,10 @@ export class PostUsuariosComponent {
     e.preventDefault();
     this.loading = true;
     const formulario = new FormData(e.target);
+
+    if(this.loading){
+      this.estadoglobalcontodo.showLoadingSpinner();
+    }
 
     this.api.postApi(this.url_usuarios, formulario).subscribe({
       next: (data: any) => {

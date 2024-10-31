@@ -3,6 +3,7 @@ import { ApipeticionesService } from '../../../core/servicios/apipeticiones.serv
 import Swal from 'sweetalert2';
 import { TokensService } from '../../../core/auth/tokens.service';
 import { initFlowbite } from 'flowbite';
+import { EstadoGlobalGuardarDatosService } from '../../../core/guardardatos/estado-global-guardar-datos.service';
 
 @Component({
   selector: 'app-postfacultades',
@@ -13,7 +14,7 @@ import { initFlowbite } from 'flowbite';
 })
 export class PostfacultadesComponent {
 
-  constructor(private api: ApipeticionesService, private token : TokensService) { }
+  constructor(private api: ApipeticionesService, private token : TokensService, private estadoglobalcontodo : EstadoGlobalGuardarDatosService ) { }
 
   id_usuario :any
   ngOnInit(): void {
@@ -114,6 +115,10 @@ export class PostfacultadesComponent {
   enviarDatos(e: any) {
     e.preventDefault(); // Evita que se recargue la página
     this.loading = true; 
+
+    if(this.loading){
+      this.estadoglobalcontodo.showLoadingSpinner();
+    }
   
     const formData = new FormData(e.target); 
   

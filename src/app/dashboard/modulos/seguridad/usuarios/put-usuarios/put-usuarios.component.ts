@@ -68,6 +68,10 @@ export class PutUsuariosComponent {
     this.loading = true;
     const formulario = new FormData(e.target);
 
+    if(this.loading){
+      this.estado_global.showLoadingSpinner();
+    }
+
     const   url_usuarios = import.meta.env.NG_APP_API + '/usuarios/' + this.id_usuario; // URL de la API
 
     this.api.patchApi(url_usuarios, formulario).subscribe({

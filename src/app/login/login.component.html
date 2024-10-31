@@ -27,7 +27,7 @@
           />
           
           <button type="submit" class="w-full bg-gray-800 text-white py-2 rounded-md font-bold hover:bg-gray-700">
-            Ingresar
+            {{loading ? 'Ingresandoo...' : 'Ingresar'}}
           </button>
           <a href="#" class="text-sm text-white mt-4 block text-center hover:underline">
             ¿Olvidaste tu contraseña?
@@ -65,7 +65,7 @@
     />
 
     <button type="submit" [disabled]="loading" class="w-full bg-gray-800 text-white py-2 rounded-md font-bold hover:bg-gray-700">
-      {{loading ? 'Ingresar...' : 'Ingresar'}}
+      {{loading ? 'Ingresandooo...' : 'Ingresar'}}
     </button>
     <a href="#" class="text-sm text-blue-100 mt-4 block text-center hover:underline">
       ¿Olvidaste tu contraseña?

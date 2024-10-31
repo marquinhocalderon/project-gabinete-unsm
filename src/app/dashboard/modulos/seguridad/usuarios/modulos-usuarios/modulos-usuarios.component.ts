@@ -96,6 +96,11 @@ export class ModulosUsuariosComponent {
     this.loading = true;
     e.preventDefault();
 
+    if(this.loading){
+      this.estado_global.showLoadingSpinner();
+    }
+
+
     const elementosFormulario = e.target.elements;
     const modulosParaSusPermisos: { id: string; habilitado: boolean }[] = [];
 
