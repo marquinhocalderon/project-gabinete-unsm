@@ -38,9 +38,9 @@ export class HistorialbackupfacultadesComponent {
     const url = import.meta.env.NG_APP_API + '/backups/facultad/' + this.datoFacultad.id; ;
     this.apiservicios.getApi(url).subscribe({
       next: (response: any) => {
-        this.datos = response[0];
-        this.datosHistorial = response[0].historial_subidos;
-        console.log("holaashkag" + this.datosHistorial);
+        this.datos = response;
+        this.datosHistorial = response.historial_subidos;
+        console.log(this.datosHistorial);
       },
       error: (error: any) => {
         console.error('Error al obtener datos:', error);
