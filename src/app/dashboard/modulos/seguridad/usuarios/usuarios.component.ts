@@ -5,6 +5,7 @@ import { ModulosUsuariosComponent } from './modulos-usuarios/modulos-usuarios.co
 import { PutUsuariosComponent } from "./put-usuarios/put-usuarios.component";
 import { EstadoGlobalGuardarDatosService } from '../../../../core/guardardatos/estado-global-guardar-datos.service';
 import { PermisosUsuariosComponent } from './permisos-usuarios/permisos-usuarios.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -69,6 +70,36 @@ export class UsuariosComponent {
       },
       error: (error: any) => {
         console.error('Error al obtener usuarios:', error);
+      }
+    });
+  }
+  clickEliminar(id: any) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡Esta acción no se puede deshacer!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const url = import.meta.env.NG_APP_API + '/usuarios/' + id;
+        this.api.deleteApi(url).subscribe({
+          next: () => {
+            Swal.fire(
+              '¡Eliminado!',
+              'El registro ha sido eliminado correctamente.',
+              'success'
+            ).then(() => {
+              this.getUsuarios();
+            });
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
       }
     });
   }
