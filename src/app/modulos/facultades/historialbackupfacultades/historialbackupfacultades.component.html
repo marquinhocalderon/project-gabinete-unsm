@@ -34,6 +34,7 @@
                   <th scope="col" class="px-6 py-3">Usuario</th>
                   <th scope="col" class="px-6 py-3">Backups</th>
                   <th scope="col" class="px-6 py-3">ZIP</th>
+                  <th scope="col" class="px-6 py-3">Accion</th>
                 </tr>
               </thead>
               <tbody>
@@ -100,6 +101,12 @@
                           d="M31.5,29c-0.276,0-0.5-0.224-0.5-0.5v-3c0-0.276,0.224-0.5,0.5-0.5s0.5,0.224,0.5,0.5v3C32,28.776,31.776,29,31.5,29z" />
                       </svg>
                     </button>
+                  </td>
+                  <td class="px-6 py-4">
+                    <svg (click)="clickEliminar(data.historial_subidos[0].id)" class="w-10 h-10 cursor-pointer text-red-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+                    </svg>
+                    
                   </td>
                 </tr>
                 <!-- Mensaje de "No hay datos" en caso de que el array esté vacío -->

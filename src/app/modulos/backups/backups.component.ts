@@ -9,6 +9,7 @@ import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 
 
@@ -109,6 +110,38 @@ export class BackupsComponent {
       }
     });
   }
+
+  clickEliminar(id: any) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡Esta acción no se puede deshacer!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const url = import.meta.env.NG_APP_API + '/detallebackups/' + id; // Usar `id` correctamente
+        this.apiservios.deleteApi(url).subscribe({
+          next: () => {
+            Swal.fire(
+              '¡Eliminado!',
+              'El registro ha sido eliminado correctamente.',
+              'success'
+            ).then(() => {
+              this.getHistorialBackups(); // Actualizar los datos después de eliminar
+            });
+          },
+          error: (err) => {
+            console.error(err); // Manejar el error
+          },
+        });
+      }
+    });
+  }
+  
 
 }
 
