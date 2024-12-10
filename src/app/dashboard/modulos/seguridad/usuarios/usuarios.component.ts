@@ -6,6 +6,7 @@ import { PutUsuariosComponent } from "./put-usuarios/put-usuarios.component";
 import { EstadoGlobalGuardarDatosService } from '../../../../core/guardardatos/estado-global-guardar-datos.service';
 import { PermisosUsuariosComponent } from './permisos-usuarios/permisos-usuarios.component';
 import Swal from 'sweetalert2';
+import { TokensService } from '../../../../core/auth/tokens.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -23,10 +24,13 @@ export class UsuariosComponent {
   estadomodalPermisos: boolean = false;
 
   estadomodalUsuarios: boolean = false;
-
-  constructor(private api: ApipeticionesService, private estado_global : EstadoGlobalGuardarDatosService) { }
+  idUsuario : any
+  constructor(private api: ApipeticionesService, private estado_global : EstadoGlobalGuardarDatosService, private respuestaToken: TokensService) { }
 
   ngOnInit(): void {
+    const decodeToken = this.respuestaToken.decodeToken();
+    this.idUsuario = decodeToken.sub;
+    this.getModulosQueTieneUsuario();
     this.getUsuarios(); // Llamada a la función para obtener usuarios al inicializar el componente
   }
   
@@ -103,4 +107,47 @@ export class UsuariosComponent {
       }
     });
   }
+
+
+  datosMostarMenu: any 
+  modulosQuetieneUsuario: any = [];
+  tienePermisos: any
+  getModulosQueTieneUsuario(): void {
+    const urlUsuarios = import.meta.env.NG_APP_API + '/peticion/usuarios/' + this.idUsuario;
+
+    this.api.getApi(urlUsuarios).subscribe({
+      next: (data: any) => {
+        this.modulosQuetieneUsuario = data[0]?.modulos_para_mostrar_menu;
+        this.datosMostarMenu = data[0]?.modulos_para_actualizar
+        console.log('datosMostarMenu', this.datosMostarMenu);
+        this.verificarPermisos();
+      },
+      error: (error: any) => {
+        console.error('Error al obtener módulos del usuario:', error);
+      },
+    });
+  }
+  verificarPermisos(): void {
+    // Encontrar el módulo 'seguridad'
+    const moduloSeguridad = this.datosMostarMenu.find((modulo: any) => modulo.nombre_modulo === 'seguridad');
+    
+    if (moduloSeguridad) {
+      // Encontrar el submódulo 'usuarios' dentro del módulo 'seguridad'
+      const subModuloUsuarios = moduloSeguridad.sub_modulos.find((sub_modulo: any) => sub_modulo.nombre_submodulo === 'usuarios');
+  
+      if (subModuloUsuarios) {
+        // Verificar si todos los permisos en el submódulo 'usuarios' tienen valor 'true'
+        this.tienePermisos = subModuloUsuarios.permisos.every((permiso: any) => permiso.value === true);
+      } else {
+        this.tienePermisos = false; // Si no se encuentra el submódulo 'usuarios', no tiene permisos
+      }
+    } else {
+      this.tienePermisos = false; // Si no se encuentra el módulo 'seguridad', no tiene permisos
+    }
+    
+    // Mostrar en la consola si tiene permisos en 'usuarios' dentro del módulo 'seguridad' o no
+    if(!this.tienePermisos){
+      window.location.href = '/';
+    }
+  }  
 }
